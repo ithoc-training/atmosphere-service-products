@@ -84,4 +84,17 @@ public class SearchFunctionalityController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping(params = {"fromPrice", "toPrice"})
+    public ResponseEntity<List<Product>> searchProductsByPriceRange(
+            @RequestParam double fromPrice, @RequestParam double toPrice) {
+
+        List<ProductEntity> productEntities = productRepository.findByPriceBetween(fromPrice, toPrice);
+
+        List<Product> products = productEntities.stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class))
+                .toList();
+
+        return ResponseEntity.ok(products);
+    }
+
 }

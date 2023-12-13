@@ -12,4 +12,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     List<ProductEntity> findByCategory(CategoryEntity category);
 
+    List<ProductEntity> findByPriceBetween(double fromPrice, double toPrice);
+
 }
