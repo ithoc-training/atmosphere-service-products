@@ -5,10 +5,7 @@ import de.ithoc.atmosphere.service.searchandfiltering.repository.ProductEntity;
 import de.ithoc.atmosphere.service.searchandfiltering.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,7 @@ public class SearchFunctionalityController {
     public ResponseEntity<List<Product>> getAllProducts() {
 
         List<ProductEntity> productEntities = productRepository.findAll();
+
         List<Product> products = productEntities.stream()
                 .map(productEntity -> modelMapper.map(productEntity, Product.class))
                 .toList();
@@ -36,4 +34,16 @@ public class SearchFunctionalityController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping(params = "search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String search) {
+
+        List<ProductEntity> productEntities =
+                productRepository.findByNameContainingOrDescriptionContaining(search, search);
+
+        List<Product> products = productEntities.stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class))
+                .toList();
+
+        return ResponseEntity.ok(products);
+    }
 }
