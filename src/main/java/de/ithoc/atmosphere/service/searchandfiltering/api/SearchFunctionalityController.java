@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -45,5 +46,19 @@ public class SearchFunctionalityController {
                 .toList();
 
         return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+
+        UUID uuid = UUID.fromString(id);
+        ProductEntity productEntity = productRepository.findById(uuid).orElse(null);
+        if (productEntity == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Product product = modelMapper.map(productEntity, Product.class);
+
+        return ResponseEntity.ok(product);
     }
 }
