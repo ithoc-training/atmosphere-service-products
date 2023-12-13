@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     // SELECT * FROM PRODUCT WHERE name like '%Pro%' OR description like '%Pro%';
     List<ProductEntity> findByNameContainingOrDescriptionContaining(String searchName, String searchDescription);
 
+    List<ProductEntity> findByCategory(CategoryEntity category);
+
 }
