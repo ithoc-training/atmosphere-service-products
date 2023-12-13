@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: AtmoSphere Service Search and Filtering API
+  version: 1.0.0
+
+paths:
+  /products:
+    get:
+      summary: Get all products limited to latest 25 products.
+      responses:
+        '200':
+          description: The list of products.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        price:
+            type: integer
+        image:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
