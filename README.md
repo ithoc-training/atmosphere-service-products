@@ -23,3 +23,17 @@ http://localhost:18080/api/swagger-ui/index.html
 - List of found products with a maximum of 25 products.
 - [OPTIONAL] Pagination of all found products with 25 products per page.
 - [OPTIONAL] Auto-complete suggestions while typing keywords.
+
+### Filter Options
+- Filters based on categories and price range.
+- [OPTIONAL] Filter by product condition (new/used) and location.
+- [OPTIONAL] Ability to apply multiple filters simultaneously.
+- [OPTIONAL] Modify the filter options without starting over.
+
+### Sort Functionality
+- Option to sort search results by price (ascending and descending)
+- [OPTIONAL] Sort by listings creation date (ascending and descending).
+
+### Search History and Saved Searches
+- [OPTIONAL] Ability for users to view their recent search history.
+- [OPTIONAL] Option to save frequent searches for easy future access.
