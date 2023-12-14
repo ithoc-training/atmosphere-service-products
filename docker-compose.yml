@@ -4,6 +4,7 @@ services:
     build: .
     image: atmosphere-service-products
     container_name: atmosphere-service-products
+    restart: always
     ports:
       - "18080:18080"
     volumes:
