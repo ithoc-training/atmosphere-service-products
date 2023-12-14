@@ -14,18 +14,17 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/search")
-public class SearchFunctionalityController {
+public class SearchAndFilteringController {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    public SearchFunctionalityController(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public SearchAndFilteringController(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping
+    @GetMapping(value = "/search")
     public ResponseEntity<Page<ProductEntity>> getAllProducts(Pageable pageable) {
 
         Page<ProductEntity> productEntityPage = productRepository.findAll(pageable);
@@ -33,7 +32,7 @@ public class SearchFunctionalityController {
         return ResponseEntity.ok(productEntityPage);
     }
 
-    @GetMapping(params = "search")
+    @GetMapping(value = "/search", params = "search")
     public ResponseEntity<Page<ProductEntity>> searchProducts(Pageable pageable, @RequestParam String search) {
 
         Page<ProductEntity> productEntityPage =
@@ -42,7 +41,7 @@ public class SearchFunctionalityController {
         return ResponseEntity.ok(productEntityPage);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(value = "/search/{id}")
     public ResponseEntity<ProductEntity> getProductById(@PathVariable String id) {
 
         UUID uuid = UUID.fromString(id);
@@ -54,20 +53,22 @@ public class SearchFunctionalityController {
         return ResponseEntity.ok(productEntity);
     }
 
-    @GetMapping(params = "category")
-    public ResponseEntity<Page<ProductEntity>> searchProductsByCategory(Pageable pageable, @RequestParam String category) {
+    @GetMapping(value = "/search", params = "category")
+    public ResponseEntity<Page<ProductEntity>> searchProductsByCategory(
+            Pageable pageable, @RequestParam String category) {
 
         Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findByName(category);
         if (categoryEntityOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        Page<ProductEntity> productEntityPage = productRepository.findByCategory(pageable, categoryEntityOptional.get());
+        Page<ProductEntity> productEntityPage =
+                productRepository.findByCategory(pageable, categoryEntityOptional.get());
 
         return ResponseEntity.ok(productEntityPage);
     }
 
-    @GetMapping(params = {"fromPrice", "toPrice"})
+    @GetMapping(value = "/search", params = {"fromPrice", "toPrice"})
     public ResponseEntity<Page<ProductEntity>> searchProductsByPriceRange(
             Pageable pageable, @RequestParam double fromPrice, @RequestParam double toPrice) {
 
