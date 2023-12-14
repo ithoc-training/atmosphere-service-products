@@ -99,8 +99,8 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/open-api.yml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>de.ithoc.atmosphere.service.searchandfiltering.api</apiPackage>
-                            <modelPackage>de.ithoc.atmosphere.service.searchandfiltering.model</modelPackage>
+                            <apiPackage>de.ithoc.atmosphere.service.products.api</apiPackage>
+                            <modelPackage>de.ithoc.atmosphere.service.products.model</modelPackage>
                             <configOptions>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <sourceFolder>src/main/java</sourceFolder>

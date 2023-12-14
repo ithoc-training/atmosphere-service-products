@@ -11,6 +11,27 @@ To access the documentation, run the application and go to the following URL:
 http://localhost:18080/api/swagger-ui/index.html
 ```
 
+## Example Requests
+```
+curl --location 'http://localhost:18080/api/search?search=Pro'
+```
+```
+curl --location 'http://localhost:18080/api/search?search=&sortBy=price&sortOrder=DESC'
+```
+```
+curl --location 'http://localhost:18080/api/filter?category=Electronics'
+```
+```
+curl --location 'http://localhost:18080/api/filter?condition=Used'
+```
+```
+curl --location 'http://localhost:18080/api/filter?fromPrice=40&toPrice=80'
+```
+```
+curl --location 'http://localhost:18080/api/search/3d884170-adb8-4823-9819-e2570269d10d'
+```
+
+
 ## Business Requirements
 
 ### Search Functionality
