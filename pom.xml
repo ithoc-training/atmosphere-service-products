@@ -9,10 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.ithoc</groupId>
-    <artifactId>atmosphere-service-search-and-filtering</artifactId>
+    <artifactId>atmosphere-service-products</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>atmosphere-service-search-and-filtering</name>
-    <description>atmosphere-service-search-and-filtering</description>
     <properties>
         <java.version>21</java.version>
     </properties>
