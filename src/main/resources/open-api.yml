@@ -7,6 +7,26 @@ paths:
   /products:
     get:
       summary: Get all products limited to latest 25 products.
+      description: Support for keyword searches based on product titles or descriptions.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+          description: Page number starting from 0 by default.
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 20
+          description: Number of products per page.
+        - in: query
+          name: sort
+          schema:
+            type: string
+            default: UNSORTED
+          description: Sorting criteria with for 'price', 'name', 'category'. Use either of [ asc | desc ].
       responses:
         '200':
           description: The list of products.
@@ -16,9 +36,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
-
 components:
   schemas:
+    Pagination:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
     Product:
       type: object
       properties:
