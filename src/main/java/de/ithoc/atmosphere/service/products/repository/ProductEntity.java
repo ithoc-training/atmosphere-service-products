@@ -21,6 +21,9 @@ public class ProductEntity {
   private String image;
 
   @ManyToOne
+  private ConditionEntity condition;
+
+  @ManyToOne
   private CategoryEntity category;
 
 }
