@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  atmosphere-service-products:
+    build: .
+    image: atmosphere-service-products
+    container_name: atmosphere-service-products
+    ports:
+      - "18080:18080"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"

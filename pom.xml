@@ -73,6 +73,7 @@
     </dependencies>
 
     <build>
+        <finalName>atmosphere-service-products</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
