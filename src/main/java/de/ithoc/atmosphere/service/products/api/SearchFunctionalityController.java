@@ -1,9 +1,9 @@
-package de.ithoc.atmosphere.service.searchandfiltering.api;
+package de.ithoc.atmosphere.service.products.api;
 
-import de.ithoc.atmosphere.service.searchandfiltering.repository.CategoryEntity;
-import de.ithoc.atmosphere.service.searchandfiltering.repository.CategoryRepository;
-import de.ithoc.atmosphere.service.searchandfiltering.repository.ProductEntity;
-import de.ithoc.atmosphere.service.searchandfiltering.repository.ProductRepository;
+import de.ithoc.atmosphere.service.products.repository.CategoryEntity;
+import de.ithoc.atmosphere.service.products.repository.CategoryRepository;
+import de.ithoc.atmosphere.service.products.repository.ProductEntity;
+import de.ithoc.atmosphere.service.products.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

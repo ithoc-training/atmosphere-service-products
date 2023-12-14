@@ -1,4 +1,4 @@
-package de.ithoc.atmosphere.service.searchandfiltering.config;
+package de.ithoc.atmosphere.service.products.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

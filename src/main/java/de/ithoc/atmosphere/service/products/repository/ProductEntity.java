@@ -1,4 +1,4 @@
-package de.ithoc.atmosphere.service.searchandfiltering.repository;
+package de.ithoc.atmosphere.service.products.repository;
 
 import jakarta.persistence.*;
 import lombok.Getter;
