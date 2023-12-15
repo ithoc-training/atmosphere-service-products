@@ -10,8 +10,36 @@ To access the documentation, run the application and go to the following URL:
 ```
 http://localhost:18080/api/swagger-ui/index.html
 ```
+The API Docs can be found here:
+```
+https://integ.dynv6.net/atmosphere-service-products/api/v3/api-docs
+```
 
 ## Example Requests
+
+### Create a new product
+
+#### cURL
+```
+curl --location 'https://integ.dynv6.net/atmosphere-service-products/api/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Schneemann",
+    "description": "Schneemann komplett gefroren und mit Nase und Hut.",
+    "price": 11.7,
+    "image": "https://cdn.pixabay.com/photo/2016/12/04/21/22/snowman-1882635_1280.jpg",
+    "category": {
+        "name": "Electronics"
+    },
+    "condition": {
+        "name": "Used"
+    }
+}'
+```
+
+#### Postman
+![Postman](docs/POST_products.png)
+
 ```
 curl --location 'http://localhost:18080/api/search?search=Pro'
 ```
@@ -31,30 +59,3 @@ curl --location 'http://localhost:18080/api/filter?fromPrice=40&toPrice=80'
 curl --location 'http://localhost:18080/api/search/3d884170-adb8-4823-9819-e2570269d10d'
 ```
 
-
-## Business Requirements
-
-### Search Functionality
-- A prominent, easily accessible search bar on the products page.
-- Support for keyword searches based on product titles or descriptions.
-- [OPTIONAL] Modify the search query without starting over.
-
-### Search Results Page
-- Display of search results with product title, image as thumbnail, and price per row.
-- List of found products with a maximum of 25 products.
-- [OPTIONAL] Pagination of all found products with 25 products per page.
-- [OPTIONAL] Auto-complete suggestions while typing keywords.
-
-### Filter Options
-- Filters based on categories and price range.
-- [OPTIONAL] Filter by product condition (new/used) and location.
-- [OPTIONAL] Ability to apply multiple filters simultaneously.
-- [OPTIONAL] Modify the filter options without starting over.
-
-### Sort Functionality
-- Option to sort search results by price (ascending and descending)
-- [OPTIONAL] Sort by listings creation date (ascending and descending).
-
-### Search History and Saved Searches
-- [OPTIONAL] Ability for users to view their recent search history.
-- [OPTIONAL] Option to save frequent searches for easy future access.
