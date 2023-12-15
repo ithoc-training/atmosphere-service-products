@@ -1,10 +1,10 @@
-package de.ithoc.atmosphere.service.searchandfiltering;
+package de.ithoc.atmosphere.service.products;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SearchAndFilteringApplicationTests {
+class ProductsApplicationTests {
 
     @Test
     void contextLoads() {
