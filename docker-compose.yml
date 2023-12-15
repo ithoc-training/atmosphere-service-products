@@ -1,11 +1,33 @@
 version: '3.3'
 services:
+  atmosphere-db-products:
+    image: postgres:15.2
+    container_name: atmosphere-db-products
+    restart: always
+    ports:
+      - "8432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ~/ws/atmosphere-db-volume:/var/lib/postgresql/data
+    networks:
+      - atmosphere-network
   atmosphere-service-products:
     build: .
     image: atmosphere-service-products
     container_name: atmosphere-service-products
     restart: always
+    depends_on:
+      - atmosphere-db-products
     ports:
       - "18080:18080"
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - "${HOME}/.m2:/root/.m2"
+    networks:
+      - atmosphere-network
+networks:
+    atmosphere-network:
