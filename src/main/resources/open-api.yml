@@ -285,6 +285,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pagination'
+  /products:
+    post:
+      operationId: createProduct
+      summary: Create a new product
+      description: Create a new product with the given data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created
+        '400':
+          description: Invalid Product
   /items:
     get:
       operationId: getItems
