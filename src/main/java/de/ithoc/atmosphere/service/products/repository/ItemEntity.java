@@ -7,10 +7,10 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Entity(name = "product")
+@Entity(name = "item")
 @Getter
 @Setter
-public class ProductEntity {
+public class ItemEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

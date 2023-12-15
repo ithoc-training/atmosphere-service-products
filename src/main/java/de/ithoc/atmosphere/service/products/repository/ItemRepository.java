@@ -7,19 +7,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
+public interface ItemRepository extends JpaRepository<ItemEntity, UUID> {
 
     // SELECT * FROM PRODUCT WHERE name like '%Pro%' OR description like '%Pro%';
-    Page<ProductEntity> findByNameContainingOrDescriptionContaining(
+    Page<ItemEntity> findByNameContainingOrDescriptionContaining(
             Pageable pageable, String searchName, String searchDescription);
 
-    Page<ProductEntity> findByCategory(Pageable pageable, CategoryEntity category);
+    Page<ItemEntity> findByCategory(Pageable pageable, CategoryEntity category);
 
-    Page<ProductEntity> findByPriceBetween(Pageable pageable, BigDecimal fromPrice, BigDecimal toPrice);
+    Page<ItemEntity> findByPriceBetween(Pageable pageable, BigDecimal fromPrice, BigDecimal toPrice);
 
-    Page<ProductEntity> findByCondition(Pageable pageable, ConditionEntity condition);
+    Page<ItemEntity> findByCondition(Pageable pageable, ConditionEntity condition);
 
-    Page<ProductEntity> findByCategoryAndConditionAndPriceBetween(
+    Page<ItemEntity> findByCategoryAndConditionAndPriceBetween(
             Pageable pageable,
             CategoryEntity category, ConditionEntity condition,
             BigDecimal fromPrice, BigDecimal toPrice);

@@ -1,8 +1,8 @@
 package de.ithoc.atmosphere.service.products.api;
 
+import de.ithoc.atmosphere.service.products.model.Item;
 import de.ithoc.atmosphere.service.products.model.Pagination;
-import de.ithoc.atmosphere.service.products.model.Product;
-import de.ithoc.atmosphere.service.products.repository.ProductEntity;
+import de.ithoc.atmosphere.service.products.repository.ItemEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,11 +22,14 @@ public class ApiUtils {
         return PageRequest.of(page, size, sort);
     }
 
-    public static Pagination createPagination(Integer page, Integer size, String sortBy, String sortOrder, Page<ProductEntity> productEntityPage, List<Product> products) {
+    public static Pagination createPagination(
+            Integer page, Integer size, String sortBy, String sortOrder,
+            Page<ItemEntity> productEntityPage,
+            List<Item> items) {
 
         Pagination pagination = new Pagination();
 
-        pagination.setContent(products);
+        pagination.setContent(items);
         pagination.setPageNumber(page);
         pagination.setPageSize(size);
         pagination.setTotalElements(productEntityPage.getTotalElements());
