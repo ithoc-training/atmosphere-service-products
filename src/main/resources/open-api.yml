@@ -107,3 +107,25 @@ components:
         price:
           type: number
           format: float
+        image:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        condition:
+          $ref: '#/components/schemas/Condition'
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    Condition:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
