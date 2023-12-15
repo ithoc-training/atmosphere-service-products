@@ -1,7 +1,7 @@
 package de.ithoc.atmosphere.service.products.api;
 
-import de.ithoc.atmosphere.service.products.model.Item;
 import de.ithoc.atmosphere.service.products.model.Pagination;
+import de.ithoc.atmosphere.service.products.model.Product;
 import de.ithoc.atmosphere.service.products.repository.*;
 import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
@@ -18,17 +18,17 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class FilterController implements FilterApi {
 
-    private final ItemRepository itemRepository;
+    private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ConditionRepository conditionRepository;
     private final ModelMapper modelMapper;
 
 
-    public FilterController(ItemRepository itemRepository,
+    public FilterController(ProductRepository productRepository,
                             CategoryRepository categoryRepository,
                             ConditionRepository conditionRepository,
                             ModelMapper modelMapper) {
-        this.itemRepository = itemRepository;
+        this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.conditionRepository = conditionRepository;
         this.modelMapper = modelMapper;
@@ -36,7 +36,7 @@ public class FilterController implements FilterApi {
 
 
     @Override
-    public ResponseEntity<Pagination> filterItems(
+    public ResponseEntity<Pagination> filterProducts(
             @NotNull String category, @NotNull String condition,
             @NotNull BigDecimal fromPrice, @NotNull BigDecimal toPrice,
             Integer page, Integer size, String sortBy, String sortOrder
@@ -52,23 +52,23 @@ public class FilterController implements FilterApi {
             return ResponseEntity.notFound().build();
         }
 
-        Page<ItemEntity> productEntityPage =
-                itemRepository.findByCategoryAndConditionAndPriceBetween(
+        Page<ProductEntity> productEntityPage =
+                productRepository.findByCategoryAndConditionAndPriceBetween(
                         ApiUtils.createPageable(page, size, sortBy, sortOrder),
                         categoryEntityOptional.get(), conditionOptional.get(),
                         fromPrice, toPrice);
 
-        List<Item> items = productEntityPage.getContent().stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).toList();
+        List<Product> products = productEntityPage.getContent().stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class)).toList();
         Pagination pagination =
-                ApiUtils.createPagination(page, size, sortBy, sortOrder, productEntityPage, items);
+                ApiUtils.createPaginationProduct(page, size, sortBy, sortOrder, productEntityPage, products);
 
         return ResponseEntity.ok(pagination);
     }
 
 
     @Override
-    public ResponseEntity<Pagination> filterItemsByCategory(
+    public ResponseEntity<Pagination> filterProductsByCategory(
             @NotNull String category,
             Integer page, Integer size, String sortBy, String sortOrder
     ) {
@@ -79,18 +79,18 @@ public class FilterController implements FilterApi {
         }
 
         Pageable pageable = ApiUtils.createPageable(page, size, sortBy, sortOrder);
-        Page<ItemEntity> productEntityPage =
-                itemRepository.findByCategory(pageable, categoryEntityOptional.get());
-        List<Item> items = productEntityPage.getContent().stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).toList();
-        Pagination pagination = ApiUtils.createPagination(page, size, sortBy, sortOrder, productEntityPage, items);
+        Page<ProductEntity> productEntityPage =
+                productRepository.findByCategory(pageable, categoryEntityOptional.get());
+        List<Product> products = productEntityPage.getContent().stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class)).toList();
+        Pagination pagination = ApiUtils.createPaginationProduct(page, size, sortBy, sortOrder, productEntityPage, products);
 
         return ResponseEntity.ok(pagination);
     }
 
 
     @Override
-    public ResponseEntity<Pagination> filterItemsByCondition(
+    public ResponseEntity<Pagination> filterProductsByCondition(
             @NotNull String condition,
             Integer page, Integer size, String sortBy, String sortOrder
     ) {
@@ -101,27 +101,27 @@ public class FilterController implements FilterApi {
         }
 
         Pageable pageable = ApiUtils.createPageable(page, size, sortBy, sortOrder);
-        Page<ItemEntity> productEntityPage =
-                itemRepository.findByCondition(pageable, conditionOptional.get());
-        List<Item> items = productEntityPage.getContent().stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).toList();
-        Pagination pagination = ApiUtils.createPagination(page, size, sortBy, sortOrder, productEntityPage, items);
+        Page<ProductEntity> productEntityPage =
+                productRepository.findByCondition(pageable, conditionOptional.get());
+        List<Product> products = productEntityPage.getContent().stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class)).toList();
+        Pagination pagination = ApiUtils.createPaginationProduct(page, size, sortBy, sortOrder, productEntityPage, products);
 
         return ResponseEntity.ok(pagination);
     }
 
 
     @Override
-    public ResponseEntity<Pagination> filterItemsByPriceRange(
+    public ResponseEntity<Pagination> filterProductsByPriceRange(
             @NotNull BigDecimal fromPrice, @NotNull BigDecimal toPrice,
             Integer page, Integer size, String sortBy, String sortOrder
     ) {
 
         Pageable pageable = ApiUtils.createPageable(page, size, sortBy, sortOrder);
-        Page<ItemEntity> productEntityPage = itemRepository.findByPriceBetween(pageable, fromPrice, toPrice);
-        List<Item> items = productEntityPage.getContent().stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).toList();
-        Pagination pagination = ApiUtils.createPagination(page, size, sortBy, sortOrder, productEntityPage, items);
+        Page<ProductEntity> productEntityPage = productRepository.findByPriceBetween(pageable, fromPrice, toPrice);
+        List<Product> products = productEntityPage.getContent().stream()
+                .map(productEntity -> modelMapper.map(productEntity, Product.class)).toList();
+        Pagination pagination = ApiUtils.createPaginationProduct(page, size, sortBy, sortOrder, productEntityPage, products);
 
         return ResponseEntity.ok(pagination);
     }

@@ -1,7 +1,5 @@
 package de.ithoc.atmosphere.service.products.api;
 
-import de.ithoc.atmosphere.service.products.api.ApiUtils;
-import de.ithoc.atmosphere.service.products.api.ItemsApi;
 import de.ithoc.atmosphere.service.products.model.Item;
 import de.ithoc.atmosphere.service.products.model.Pagination;
 import de.ithoc.atmosphere.service.products.repository.ItemEntity;
