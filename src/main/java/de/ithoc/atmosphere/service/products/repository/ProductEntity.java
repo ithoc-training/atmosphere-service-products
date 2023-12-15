@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity(name = "product")
@@ -17,7 +18,7 @@ public class ProductEntity {
 
   private String name;
   private String description;
-  private Integer price;
+  private BigDecimal price;
   private String image;
 
   @ManyToOne

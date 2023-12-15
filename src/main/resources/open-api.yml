@@ -73,7 +73,218 @@ paths:
         '404':
           description: Product not found.
           content: {}
-
+  /filter/category:
+    get:
+      operationId: filterProductsByCategory
+      summary: Filter products by category.
+      description: Filter based on product category.
+      parameters:
+        - name: category
+          in: query
+          description: Category
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number starting from 0 by default.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Number of products per page.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sortBy
+          in: query
+          description: Sorting criteria with for 'price', 'name', 'category'.
+          required: false
+          schema:
+            type: string
+            default: price
+        - name: sortOrder
+          in: query
+          description: Use either of [ ASC | DESC ].
+          required: false
+          schema:
+            type: string
+            default: ASC
+      responses:
+        '200':
+          description: The list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pagination'
+  /filter/condition:
+    get:
+      operationId: filterProductsByCondition
+      summary: Filter products by condition.
+      description: Filter based on product condition.
+      parameters:
+        - name: condition
+          in: query
+          description: Condition
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number starting from 0 by default.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Number of products per page.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sortBy
+          in: query
+          description: Sorting criteria with for 'price', 'name', 'category'.
+          required: false
+          schema:
+            type: string
+            default: price
+        - name: sortOrder
+          in: query
+          description: Use either of [ ASC | DESC ].
+          required: false
+          schema:
+            type: string
+            default: ASC
+      responses:
+        '200':
+          description: The list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pagination'
+  /filter/pricerange:
+    get:
+      operationId: filterProductsByPriceRange
+      summary: Filter products by price range.
+      description: Filter based on product price range.
+      parameters:
+        - name: fromPrice
+          in: query
+          description: From price
+          required: true
+          schema:
+            type: number
+        - name: toPrice
+          in: query
+          description: To price
+          required: true
+          schema:
+            type: number
+        - name: page
+          in: query
+          description: Page number starting from 0 by default.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Number of products per page.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sortBy
+          in: query
+          description: Sorting criteria with for 'price', 'name', 'category'.
+          required: false
+          schema:
+            type: string
+            default: price
+        - name: sortOrder
+          in: query
+          description: Use either of [ ASC | DESC ].
+          required: false
+          schema:
+            type: string
+            default: ASC
+      responses:
+        '200':
+          description: The list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pagination'
+  /filter/and:
+    get:
+      operationId: filterProducts
+      summary: Filter products by various criteria.
+      description: Filter based on product category, condition, and price range as AND criteria.
+      parameters:
+        - name: category
+          in: query
+          description: Category
+          required: true
+          schema:
+            type: string
+        - name: condition
+          in: query
+          description: Condition
+          required: true
+          schema:
+            type: string
+        - name: fromPrice
+          in: query
+          description: From price
+          required: true
+          schema:
+            type: number
+        - name: toPrice
+          in: query
+          description: To price
+          required: true
+          schema:
+            type: number
+        - name: page
+          in: query
+          description: Page number starting from 0 by default.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Number of products per page.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sortBy
+          in: query
+          description: Sorting criteria with for 'price', 'name', 'category'.
+          required: false
+          schema:
+            type: string
+            default: price
+        - name: sortOrder
+          in: query
+          description: Use either of [ ASC | DESC ].
+          required: false
+          schema:
+            type: string
+            default: ASC
+      responses:
+        '200':
+          description: The list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pagination'
 components:
   schemas:
     Pagination:
