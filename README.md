@@ -4,16 +4,31 @@ To facilitate an effective and user-friendly search mechanism that allows users 
 quickly and accurately find products they are interested in, thus improving user 
 satisfaction and engagement on the platform.
 
+## Getting Started
+The base URL for the API backend is:
+```
+https://integ.dynv6.net/atmosphere-service-products/api
+```
+Get familiar with the API by reading the API documentation.
+
 ## API Documentation
+
 The API documentation is provided by Swagger. 
 To access the documentation, run the application and go to the following URL:
 ```
-http://localhost:18080/api/swagger-ui/index.html
+https://integ.dynv6.net/atmosphere-service-products/api/swagger-ui/index.html
 ```
+
 The API Docs can be found here:
 ```
 https://integ.dynv6.net/atmosphere-service-products/api/v3/api-docs
 ```
+
+## Swagger UI
+To view the API documentation as usual, follow these steps:
+1. Call the API Docs (e.g. from Postman): https://integ.dynv6.net/atmosphere-service-products/api/v3/api-docs
+2. Go to Swagger Editor: https://editor.swagger.io
+3. Copy the response content of the API Docs into the Swagger Editor
 
 ## Example Requests
 
