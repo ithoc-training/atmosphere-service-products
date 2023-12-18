@@ -1,15 +1,14 @@
 package de.ithoc.atmosphere.service.products.api;
 
-import de.ithoc.atmosphere.service.products.model.CategoryEnum;
+import de.ithoc.atmosphere.service.products.model.*;
 import de.ithoc.atmosphere.service.products.model.Error;
-import de.ithoc.atmosphere.service.products.model.PostResponse;
-import de.ithoc.atmosphere.service.products.model.Product;
 import de.ithoc.atmosphere.service.products.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,17 +36,24 @@ public class ProductsController implements ProductsApi {
     @Override
     public ResponseEntity<PostResponse> createProduct(Product product) {
 
+        List<Error> errors = new ArrayList<>();
+
         Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findByName(product.getCategory().getName());
         if (categoryEntityOptional.isEmpty()) {
             String message = String.format("Category with name '%s' not found", product.getCategory().getName());
             message += String.format(" (available categories: %s)", List.of(CategoryEnum.values()));
-
-            return ResponseEntity.status(404).body(createResponse(message));
+            errors.add(new Error().message(message));
         }
 
         Optional<ConditionEntity> conditionOptional = conditionRepository.findByName(product.getCondition().getName());
         if (conditionOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            String message = String.format("Condition with name '%s' not found", product.getCondition().getName());
+            message += String.format(" (available conditions: %s)", List.of(CondititionEnum.values()));
+            errors.add(new Error().message(message));
+        }
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.status(400).body(new PostResponse().errors(errors));
         }
 
         ProductEntity productEntity = modelMapper.map(product, ProductEntity.class);
