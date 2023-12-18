@@ -1,5 +1,8 @@
 package de.ithoc.atmosphere.service.products.api;
 
+import de.ithoc.atmosphere.service.products.model.CategoryEnum;
+import de.ithoc.atmosphere.service.products.model.Error;
+import de.ithoc.atmosphere.service.products.model.PostResponse;
 import de.ithoc.atmosphere.service.products.model.Product;
 import de.ithoc.atmosphere.service.products.repository.*;
 import org.modelmapper.ModelMapper;
@@ -7,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,11 +35,14 @@ public class ProductsController implements ProductsApi {
 
 
     @Override
-    public ResponseEntity<Void> createProduct(Product product) {
+    public ResponseEntity<PostResponse> createProduct(Product product) {
 
         Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findByName(product.getCategory().getName());
         if (categoryEntityOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            String message = String.format("Category with name '%s' not found", product.getCategory().getName());
+            message += String.format(" (available categories: %s)", List.of(CategoryEnum.values()));
+
+            return ResponseEntity.status(404).body(createResponse(message));
         }
 
         Optional<ConditionEntity> conditionOptional = conditionRepository.findByName(product.getCondition().getName());
@@ -48,7 +55,17 @@ public class ProductsController implements ProductsApi {
         productEntity.setCondition(conditionOptional.get());
         productRepository.save(productEntity);
 
-        return ResponseEntity.status(201).build();
+        return ResponseEntity.status(201).body(new PostResponse().errors(List.of()));
+    }
+
+
+    private PostResponse createResponse(String message) {
+
+        Error error = new Error().message(message);
+        PostResponse postResponse = new PostResponse();
+        postResponse.addErrorsItem(error);
+
+        return postResponse;
     }
 
 }

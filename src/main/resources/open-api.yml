@@ -299,8 +299,16 @@ paths:
       responses:
         '201':
           description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
         '400':
           description: Invalid Product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
   /items:
     get:
       operationId: getItems
@@ -405,6 +413,10 @@ components:
           type: string
         sortOrder:
           type: string # "ASC" | "DESC"
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     Product:
       type: object
       properties:
@@ -458,4 +470,17 @@ components:
           type: string
           format: uuid
         name:
+          type: string
+
+    PostResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        message:
           type: string

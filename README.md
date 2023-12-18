@@ -4,6 +4,12 @@ To facilitate an effective and user-friendly search mechanism that allows users 
 quickly and accurately find products they are interested in, thus improving user 
 satisfaction and engagement on the platform.
 
+Products are categorized into these categories (mandatory):
+![Categories](docs/categories.png)
+
+Products have conditions (mandatory):
+![Conditions](docs/conditions.png)
+
 ## Getting Started
 The base URL for the API backend is:
 ```
