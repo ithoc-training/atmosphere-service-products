@@ -1,9 +1,8 @@
 package de.ithoc.atmosphere.service.products.api;
 
-import de.ithoc.atmosphere.service.products.model.Item;
-import de.ithoc.atmosphere.service.products.model.Pagination;
-import de.ithoc.atmosphere.service.products.repository.ItemEntity;
-import de.ithoc.atmosphere.service.products.repository.ItemRepository;
+import de.ithoc.atmosphere.service.products.model.*;
+import de.ithoc.atmosphere.service.products.model.Error;
+import de.ithoc.atmosphere.service.products.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -20,25 +21,51 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class ItemController implements ItemsApi {
 
+    private final CategoryRepository categoryRepository;
+    private final ConditionRepository conditionRepository;
     private final ItemRepository itemRepository;
     private final ModelMapper modelMapper;
 
 
     public ItemController(
-            ItemRepository itemRepository,
+            CategoryRepository categoryRepository, ConditionRepository conditionRepository, ItemRepository itemRepository,
             ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.conditionRepository = conditionRepository;
         this.itemRepository = itemRepository;
         this.modelMapper = modelMapper;
     }
 
 
     @Override
-    public ResponseEntity<Void> createItem(Item item) {
+    public ResponseEntity<PostResponse> createItem(Item item) {
+
+        List<Error> errors = new ArrayList<>();
+
+        Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findByName(item.getCategory().getName());
+        if (categoryEntityOptional.isEmpty()) {
+            String message = String.format("Category with name '%s' not found", item.getCategory().getName());
+            message += String.format(" (available categories: %s)", List.of(CategoryEnum.values()));
+            errors.add(new Error().message(message));
+        }
+
+        Optional<ConditionEntity> conditionOptional = conditionRepository.findByName(item.getCondition().getName());
+        if (conditionOptional.isEmpty()) {
+            String message = String.format("Condition with name '%s' not found", item.getCondition().getName());
+            message += String.format(" (available conditions: %s)", List.of(CondititionEnum.values()));
+            errors.add(new Error().message(message));
+        }
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.status(400).body(new PostResponse().errors(errors));
+        }
 
         ItemEntity itemEntity = modelMapper.map(item, ItemEntity.class);
+        itemEntity.setCategory(categoryEntityOptional.get());
+        itemEntity.setCondition(conditionOptional.get());
         itemRepository.save(itemEntity);
 
-        return ResponseEntity.status(201).build();
+        return ResponseEntity.status(201).body(new PostResponse().errors(List.of()));
     }
 
 
