@@ -35,3 +35,4 @@ build/
 ### Other ###
 .mvn/
 .env
+src/gen/
