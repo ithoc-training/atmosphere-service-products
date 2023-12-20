@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Deprecated(forRemoval = true)
 public class FilterController implements FilterApi {
 
     private final ProductRepository productRepository;

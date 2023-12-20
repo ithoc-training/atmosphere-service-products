@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Deprecated(forRemoval = true)
 public class ProductsController implements ProductsApi {
 
     private final CategoryRepository categoryRepository;
@@ -62,16 +63,6 @@ public class ProductsController implements ProductsApi {
         productRepository.save(productEntity);
 
         return ResponseEntity.status(201).body(new PostResponse().errors(List.of()));
-    }
-
-
-    private PostResponse createResponse(String message) {
-
-        Error error = new Error().message(message);
-        PostResponse postResponse = new PostResponse();
-        postResponse.addErrorsItem(error);
-
-        return postResponse;
     }
 
 }

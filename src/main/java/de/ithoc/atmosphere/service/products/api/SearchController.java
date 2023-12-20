@@ -16,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/search")
 @CrossOrigin(origins = "*")
+@Deprecated(forRemoval = true)
 public class SearchController implements SearchApi {
 
     private final ProductRepository productRepository;
