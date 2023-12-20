@@ -121,10 +121,10 @@
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <sourceDirectory>${basedir}/src/main/resources/serpapi</sourceDirectory>
+                    <sourceDirectory>${basedir}/src/main/resources/schemas</sourceDirectory>
                     <sourceType>json</sourceType>
                     <outputDirectory>src/gen/java</outputDirectory>
-                    <targetPackage>de.ithoc.atmosphere.service.products.model.serpapi</targetPackage>
+                    <targetPackage>de.ithoc.atmosphere.service.products.model</targetPackage>
                 </configuration>
                 <executions>
                     <execution>
