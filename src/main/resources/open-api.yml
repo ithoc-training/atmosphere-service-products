@@ -5,321 +5,39 @@ info:
 servers:
   - url: https://integ.dynv6.net/atmosphere-service-products/api
 paths:
-  /search:
-    get:
-      operationId: getProducts
-      summary: Get all products limited to latest 20 products.
-      description: Searches based on product titles or descriptions.
-      parameters:
-        - name: page
-          in: query
-          description: Page number starting from 0 by default.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Number of products per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: sortBy
-          in: query
-          description: Sorting criteria with for 'price', 'name', 'category'.
-          required: false
-          schema:
-            type: string
-            default: price
-        - name: sortOrder
-          in: query
-          description: Use either of [ ASC | DESC ].
-          required: false
-          schema:
-            type: string
-            default: ASC
-        - name: search
-          in: query
-          description: Search criteria that searches product name and description.
-          required: false
-          schema:
-            type: string
-            default: ''
-      responses:
-        '200':
-          description: The list of products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pagination'
-  /search/{id}:
-    get:
-      operationId: getProductById
-      summary: Get a product by id.
-      description: Searches based on product id.
-      parameters:
-        - name: id
-          in: path
-          description: Product id.
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The product.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        '404':
-          description: Product not found.
-          content: {}
-  /filter/category:
-    get:
-      operationId: filterProductsByCategory
-      summary: Filter products by category.
-      description: Filter based on product category.
-      parameters:
-        - name: category
-          in: query
-          description: Category
-          required: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: Page number starting from 0 by default.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Number of products per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: sortBy
-          in: query
-          description: Sorting criteria with for 'price', 'name', 'category'.
-          required: false
-          schema:
-            type: string
-            default: price
-        - name: sortOrder
-          in: query
-          description: Use either of [ ASC | DESC ].
-          required: false
-          schema:
-            type: string
-            default: ASC
-      responses:
-        '200':
-          description: The list of products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pagination'
-  /filter/condition:
-    get:
-      operationId: filterProductsByCondition
-      summary: Filter products by condition.
-      description: Filter based on product condition.
-      parameters:
-        - name: condition
-          in: query
-          description: Condition
-          required: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: Page number starting from 0 by default.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Number of products per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: sortBy
-          in: query
-          description: Sorting criteria with for 'price', 'name', 'category'.
-          required: false
-          schema:
-            type: string
-            default: price
-        - name: sortOrder
-          in: query
-          description: Use either of [ ASC | DESC ].
-          required: false
-          schema:
-            type: string
-            default: ASC
-      responses:
-        '200':
-          description: The list of products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pagination'
-  /filter/pricerange:
-    get:
-      operationId: filterProductsByPriceRange
-      summary: Filter products by price range.
-      description: Filter based on product price range.
-      parameters:
-        - name: fromPrice
-          in: query
-          description: From price
-          required: true
-          schema:
-            type: number
-        - name: toPrice
-          in: query
-          description: To price
-          required: true
-          schema:
-            type: number
-        - name: page
-          in: query
-          description: Page number starting from 0 by default.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Number of products per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: sortBy
-          in: query
-          description: Sorting criteria with for 'price', 'name', 'category'.
-          required: false
-          schema:
-            type: string
-            default: price
-        - name: sortOrder
-          in: query
-          description: Use either of [ ASC | DESC ].
-          required: false
-          schema:
-            type: string
-            default: ASC
-      responses:
-        '200':
-          description: The list of products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pagination'
-  /filter/and:
-    get:
-      operationId: filterProducts
-      summary: Filter products by various criteria.
-      description: Filter based on product category, condition, and price range as AND criteria.
-      parameters:
-        - name: category
-          in: query
-          description: Category
-          required: true
-          schema:
-            type: string
-        - name: condition
-          in: query
-          description: Condition
-          required: true
-          schema:
-            type: string
-        - name: fromPrice
-          in: query
-          description: From price
-          required: true
-          schema:
-            type: number
-        - name: toPrice
-          in: query
-          description: To price
-          required: true
-          schema:
-            type: number
-        - name: page
-          in: query
-          description: Page number starting from 0 by default.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Number of products per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: sortBy
-          in: query
-          description: Sorting criteria with for 'price', 'name', 'category'.
-          required: false
-          schema:
-            type: string
-            default: price
-        - name: sortOrder
-          in: query
-          description: Use either of [ ASC | DESC ].
-          required: false
-          schema:
-            type: string
-            default: ASC
-      responses:
-        '200':
-          description: The list of products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pagination'
-  /products:
-    post:
-      operationId: createProduct
-      summary: Create a new product
-      description: Create a new product with the given data.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
-      responses:
-        '201':
-          description: Product created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PostResponse'
-        '400':
-          description: Invalid Product
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PostResponse'
   /items:
     get:
       operationId: getItems
       summary: Get all items limited to latest 20 items.
       description: Searches based on item titles or descriptions.
       parameters:
-        - name: searchcriteria
+        - name: term
           in: query
-          description: Search criteria that searches item name and description.
+          description: Search term that considers item name and description.
+          required: false
+          schema:
+            type: string
+        - name: fromPrice
+          in: query
+          description: Minimum price.
+          required: false
+          schema:
+            type: string
+        - name: toPrice
+          in: query
+          description: Maximum price.
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Category to filter by.
+          required: false
+          schema:
+            type: string
+        - name: condition
+          in: query
+          description: Condition to filter by.
           required: false
           schema:
             type: string

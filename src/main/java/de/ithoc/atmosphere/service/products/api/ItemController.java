@@ -71,7 +71,11 @@ public class ItemController implements ItemsApi {
 
     @Override
     public ResponseEntity<Pagination> getItems(
-            @RequestParam(value = "searchcriteria", required = false) String searchcriteria,
+            @RequestParam(value = "term", required = false) String term,
+            @RequestParam(value = "fromPrice", required = false) String fromPrice,
+            @RequestParam(value = "toPrice", required = false) String toPrice,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "condition", required = false) String condition,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "price") String sortBy,
@@ -80,13 +84,16 @@ public class ItemController implements ItemsApi {
 
         Pageable pageable = ApiUtils.createPageable(page, size, sortBy, sortOrder);
 
-        Page<ItemEntity> itemEntityPage;
-        if (searchcriteria == null || searchcriteria.isEmpty()) {
-            itemEntityPage = itemRepository.findAll(pageable);
-        } else {
-            itemEntityPage = itemRepository.findByNameContainingOrDescriptionContaining(
-                    pageable, searchcriteria, searchcriteria);
-        }
+        CategoryEntity categoryEntity = categoryRepository.findByName(category)
+                .orElseThrow(() -> new RuntimeException("Category '" + category + "' not found"));
+        ConditionEntity conditionEntity = conditionRepository.findByName(condition)
+                .orElseThrow(() -> new RuntimeException("Condition '" + condition + "' not found"));
+
+        Page<ItemEntity> itemEntityPage = itemRepository.findItems(
+                pageable, term,
+                fromPrice, toPrice,
+                categoryEntity.getId(), conditionEntity.getId()
+        );
 
         List<Item> items = itemEntityPage.getContent().stream()
                 .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).toList();
