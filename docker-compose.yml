@@ -25,6 +25,8 @@ services:
     environment:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      SERP_API_KEY: ${SERP_API_KEY}
+      PEXELS_API_API_KEY: ${PEXELS_API_API_KEY}
     volumes:
       - "${HOME}/.m2:/root/.m2"
     networks:
