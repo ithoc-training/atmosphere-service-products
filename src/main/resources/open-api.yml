@@ -14,7 +14,7 @@ paths:
         - name: term
           in: query
           description: Search term that considers item name and description.
-          required: false
+          required: true
           schema:
             type: string
         - name: fromPrice
@@ -23,24 +23,35 @@ paths:
           required: false
           schema:
             type: string
+            minimum: 0
         - name: toPrice
           in: query
           description: Maximum price.
           required: false
           schema:
             type: string
+            minimum: 0
         - name: category
           in: query
           description: Category to filter by.
           required: false
           schema:
             type: string
+            enum:
+              - Toys
+              - Furniture
+              - Electronics
+              - Tickets
+              - Clothes
         - name: condition
           in: query
           description: Condition to filter by.
           required: false
           schema:
             type: string
+            enum:
+              - New
+              - Used
         - name: page
           in: query
           description: Page number starting from 0 by default.

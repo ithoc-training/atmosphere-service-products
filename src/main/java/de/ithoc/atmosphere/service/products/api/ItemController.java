@@ -71,11 +71,11 @@ public class ItemController implements ItemsApi {
 
     @Override
     public ResponseEntity<Pagination> getItems(
-            @RequestParam(value = "term", required = false) String term,
-            @RequestParam(value = "fromPrice", required = false) String fromPrice,
-            @RequestParam(value = "toPrice", required = false) String toPrice,
-            @RequestParam(value = "category", required = false) String category,
-            @RequestParam(value = "condition", required = false) String condition,
+            @RequestParam(value = "term", required = false, defaultValue = "") String term,
+            @RequestParam(value = "fromPrice", required = false, defaultValue = "0") String fromPrice,
+            @RequestParam(value = "toPrice", required = false, defaultValue = "1000000") String toPrice,
+            @RequestParam(value = "category", required = false, defaultValue = "Clothes") String category,
+            @RequestParam(value = "condition", required = false, defaultValue = "Used") String condition,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "price") String sortBy,
