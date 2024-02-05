@@ -93,6 +93,9 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!--
+                This plugin is used to generate the request and response body classes for the API implementation.
+                -->
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.0.0-beta</version>
@@ -104,7 +107,7 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/open-api.yml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>de.ithoc.atmosphere.service.products.api</apiPackage>
+                            <apiPackage>de.ithoc.atmosphere.service.products.application</apiPackage>
                             <modelPackage>de.ithoc.atmosphere.service.products.model</modelPackage>
                             <configOptions>
                                 <useSpringBoot3>true</useSpringBoot3>
@@ -117,6 +120,9 @@
                 </executions>
             </plugin>
             <plugin>
+                <!--
+                This plugin is used to generate the request and response body classes for external APIs.
+                -->
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.2.1</version>

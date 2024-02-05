@@ -1,4 +1,4 @@
-package de.ithoc.atmosphere.service.products.api;
+package de.ithoc.atmosphere.service.products.application;
 
 import de.ithoc.atmosphere.service.products.model.pexels.search.Response;
 import de.ithoc.atmosphere.service.products.repository.ItemEntity;
